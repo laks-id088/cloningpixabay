@@ -20,7 +20,7 @@ const SearchBar = ({ searchTerm, setSearchTerm }) => {
         <input
           type="text"
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Download free images"
+          placeholder="Search free images"
           value={searchTerm}
           className="p-2 px-3 w-full text-base md:text-xl bg-white outline-none"
         />
