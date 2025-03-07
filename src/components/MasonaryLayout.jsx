@@ -1,48 +1,49 @@
 import React, { useState } from "react";
-import { FaHeart, FaRegHeart } from "react-icons/fa"; // Import filled and unfilled heart icons
-import { MdOutlineFileDownload } from "react-icons/md"; // Import download icon
+import { FaHeart, FaRegHeart } from "react-icons/fa"; // Heart icons
+import { MdOutlineFileDownload } from "react-icons/md"; // Download icon
 import { saveAs } from "file-saver";
 
 const MasonaryLayout = ({ posts }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [likedImages, setLikedImages] = useState({}); // To track which images are liked
+  const [likedImages, setLikedImages] = useState({});
 
   const handleImageClick = (imageURL) => {
-    setSelectedImage(imageURL);  // Set the clicked image URL to the state
-    setIsModalOpen(true);  // Open the modal with the download option
+    setSelectedImage(imageURL);
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);  // Close the modal
+    setIsModalOpen(false);
   };
 
   const handleImageDownload = (url) => {
-    saveAs(url, "image.jpg");  // Trigger image download
+    saveAs(url, "image.jpg");
   };
 
   const handleLikeClick = (imageURL) => {
     setLikedImages((prevState) => ({
       ...prevState,
-      [imageURL]: !prevState[imageURL], // Toggle liked state for the image
+      [imageURL]: !prevState[imageURL],
     }));
   };
 
   return (
-    <div>
-      <div className="grid grid-cols-3 gap-4">
+    <div className="container mx-auto px-4">
+      {/* Image Grid Layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {posts.map((post, index) => (
           <div key={index} className="relative">
             <img
               src={post.largeImageURL}
               alt={`Post ${index}`}
-              className="w-full h-auto cursor-pointer"
-              onClick={() => handleImageClick(post.largeImageURL)} // Handle image click
+              className="w-full h-auto cursor-pointer transition-transform duration-300 transform hover:scale-105"
+              onClick={() => handleImageClick(post.largeImageURL)}
             />
 
-            {/* Heart Icon on each image */}
+            {/* Like (Heart) Icon */}
             <button
-              onClick={() => handleLikeClick(post.largeImageURL)} // Handle heart click
+              onClick={() => handleLikeClick(post.largeImageURL)}
               className="absolute top-2 right-2 p-2 bg-white bg-opacity-50 rounded-full"
             >
               {likedImages[post.largeImageURL] ? (
@@ -57,24 +58,29 @@ const MasonaryLayout = ({ posts }) => {
 
       {/* Modal for Enlarged Image */}
       {isModalOpen && selectedImage && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
-          <div className="relative">
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50 p-4">
+          <div className="relative flex justify-center items-center max-w-[90vw] max-h-[90vh]">
             <img
               src={selectedImage}
               alt="Selected"
-              className="w-96 h-auto cursor-pointer" // Keep the image size smaller than full screen
+              className="w-80 sm:w-96 md:w-[500px] lg:w-[600px] xl:w-[750px] max-h-[80vh] object-contain"
             />
+
+            {/* Close Button: Round Shape on Desktop (Top Center), Normal on Mobile (Top Right) */}
             <button
-              onClick={() => handleImageDownload(selectedImage)} // Download image on button click
-              className="absolute bottom-4 right-16 p-3 bg-black text-white rounded-full"
+              onClick={handleCloseModal}
+              className="absolute bg-black bg-opacity-70 text-white rounded-full p-2 text-xs sm:text-sm md:text-base
+                top-2 right-2 sm:top-2 sm:right-2 md:top-4 md:left-1/2 md:-translate-x-1/2 md:w-10 md:h-10 md:flex md:items-center md:justify-center"
+            >
+              ✕
+            </button>
+
+            {/* Download Button - Always on Image */}
+            <button
+              onClick={() => handleImageDownload(selectedImage)}
+              className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white rounded-full p-2"
             >
               <MdOutlineFileDownload className="w-6 h-6" />
-            </button>
-            <button
-              onClick={handleCloseModal} // Close modal on button click
-              className="absolute top-4 right-4 p-3 bg-black text-white rounded-full"
-            >
-              Close
             </button>
           </div>
         </div>
@@ -84,6 +90,10 @@ const MasonaryLayout = ({ posts }) => {
 };
 
 export default MasonaryLayout;
+
+
+
+
 
 
 

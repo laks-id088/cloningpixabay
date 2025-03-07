@@ -7,3 +7,21 @@ body {
   background-position: center;
   filter: blur(8px); /* Adjust the blur value as needed */
 }
+@media (max-width: 768px) {
+  .masonry-layout {
+    grid-template-columns: 1fr; /* Stack images vertically */
+  }
+}
+
+.masonry-layout img {
+  transition: transform 0.3s ease-in-out;  /* Smooth scale transition */
+}
+
+.masonry-layout img:hover {
+  transform: scale(1.05); /* Slightly enlarge the image on hover */
+}
+@media (min-width: 1024px) {
+  .modal-image {
+    max-width: 60%; /* Reduce the image size to 60% for desktops */
+  }
+}
