@@ -8,7 +8,7 @@ import VideoComponent from "../components/videocomponent";
 
 // Existing Categories for navigation (Explore, Images, etc.)
 const categories = [
-  "Explore", "Images", "Illustrations", "Vectors", "Videos", "Music", "Sound Effects", "GIFs"
+  "Explore", "Photos", "Illustrations", "Vectors", "Videos", "Music", "Sound Effects", "GIFs"
 ];
 
 // Custom categories for the new buttons
