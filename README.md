@@ -16,7 +16,6 @@ a Responsive Image viewer application in React where user can view search and fi
 
 
 
-![App Screenshot](https://firebasestorage.googleapis.com/v0/b/imageinfirebase-8d1a1.appspot.com/o/Screenshot%202023-01-09%20at%204.35.01%20PM.png?alt=media&token=7b701192-bcf8-4e31-bb6c-d29fe9a208c7)
 ## Run Locally
 
 Clone the project
