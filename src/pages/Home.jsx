@@ -121,7 +121,7 @@ const Home = () => {
 
   const categoryBackgrounds = {
     Explore:"url('https://cdn.pixabay.com/photo/2018/07/31/23/03/lavender-3576129_1280.jpg')",
-    Images: "url('https://cdn.pixabay.com/photo/2019/10/25/10/13/sunflower-4576573_1280.jpg')",
+    Photos: "url('https://cdn.pixabay.com/photo/2019/10/25/10/13/sunflower-4576573_1280.jpg')",
     Illustrations: "url('https://cdn.pixabay.com/photo/2024/02/28/11/36/magnolia-8601851_1280.png')",
     Vectors: "url('https://cdn.pixabay.com/photo/2022/10/03/23/41/house-7497002_1280.png')",
     Videos: "url('https://cdn.pixabay.com/animation/2025/02/20/20/10/20-10-19-416_512.gif')",
