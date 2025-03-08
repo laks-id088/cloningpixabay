@@ -1,31 +1,26 @@
 import React, { useState } from "react";
-import { FaHeart, FaRegHeart } from "react-icons/fa"; // Heart icons
 import { MdOutlineFileDownload } from "react-icons/md"; // Download icon
 import { saveAs } from "file-saver";
 
 const MasonaryLayout = ({ posts }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [likedImages, setLikedImages] = useState({});
+  const [selectedImage, setSelectedImage] = useState("");
 
   const handleImageClick = (imageURL) => {
+    console.log("Image clicked:", imageURL);
     setSelectedImage(imageURL);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setSelectedImage("");
   };
 
-  const handleImageDownload = (url) => {
-    saveAs(url, "image.jpg");
-  };
-
-  const handleLikeClick = (imageURL) => {
-    setLikedImages((prevState) => ({
-      ...prevState,
-      [imageURL]: !prevState[imageURL],
-    }));
+  const handleImageDownload = () => {
+    if (selectedImage) {
+      saveAs(selectedImage, "downloaded-image.jpg");
+    }
   };
 
   return (
@@ -40,48 +35,43 @@ const MasonaryLayout = ({ posts }) => {
               className="w-full h-auto cursor-pointer transition-transform duration-300 transform hover:scale-105"
               onClick={() => handleImageClick(post.largeImageURL)}
             />
-
-            {/* Like (Heart) Icon */}
-            <button
-              onClick={() => handleLikeClick(post.largeImageURL)}
-              className="absolute top-2 right-2 p-2 bg-white bg-opacity-50 rounded-full"
-            >
-              {likedImages[post.largeImageURL] ? (
-                <FaHeart className="w-6 h-6 text-red-500" />
-              ) : (
-                <FaRegHeart className="w-6 h-6 text-gray-500" />
-              )}
-            </button>
           </div>
         ))}
       </div>
 
       {/* Modal for Enlarged Image */}
       {isModalOpen && selectedImage && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50 p-4">
-          <div className="relative flex justify-center items-center max-w-[90vw] max-h-[90vh]">
+        <div
+          className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50 p-4"
+          onClick={handleCloseModal}
+        >
+          <div
+            className="relative flex flex-col items-center bg-white rounded-lg shadow-lg p-4 pointer-events-auto"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+          >
             <img
               src={selectedImage}
               alt="Selected"
-              className="w-80 sm:w-96 md:w-[500px] lg:w-[600px] xl:w-[750px] max-h-[80vh] object-contain"
+              className="w-full max-w-lg max-h-[80vh] object-contain"
             />
 
-            {/* Close Button: Round Shape on Desktop (Top Center), Normal on Mobile (Top Right) */}
-            <button
-              onClick={handleCloseModal}
-              className="absolute bg-black bg-opacity-70 text-white rounded-full p-2 text-xs sm:text-sm md:text-base
-                top-2 right-2 sm:top-2 sm:right-2 md:top-4 md:left-1/2 md:-translate-x-1/2 md:w-10 md:h-10 md:flex md:items-center md:justify-center"
-            >
-              ✕
-            </button>
+            {/* Buttons */}
+            <div className="mt-4 flex justify-between w-full">
+              <button
+                onClick={handleCloseModal}
+                className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition"
+              >
+                Close
+              </button>
 
-            {/* Download Button - Always on Image */}
-            <button
-              onClick={() => handleImageDownload(selectedImage)}
-              className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white rounded-full p-2"
-            >
-              <MdOutlineFileDownload className="w-6 h-6" />
-            </button>
+              <button
+                onClick={handleImageDownload}
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center"
+              >
+                <MdOutlineFileDownload className="w-6 h-6 mr-2" />
+                Download
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -90,10 +80,3 @@ const MasonaryLayout = ({ posts }) => {
 };
 
 export default MasonaryLayout;
-
-
-
-
-
-
-

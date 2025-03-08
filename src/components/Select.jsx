@@ -43,6 +43,7 @@ const SelectComponent = ({ category, setCategory, setSearchTerm }) => {
   const handleChange = (event) => {
     setCategory(event.target.value);
     setSearchTerm(event.target.value);
+    
   };
 
   return (

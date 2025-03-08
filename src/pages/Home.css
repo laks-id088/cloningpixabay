@@ -1,16 +1,33 @@
-
-
-
+/* Body with Background */
 body {
-  background-image: url('https://images.pexels.com/photos/3327630/pexels-photo-3327630.jpeg');
+  margin: 0;
+  padding: 0;
+}
+
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://cdn.pixabay.com/photo/2018/07/31/23/03/lavender-3576129_1280.jpg');
   background-size: cover;
   background-position: center;
   filter: blur(8px); /* Adjust the blur value as needed */
+  z-index: -1; /* Ensure background stays behind content */
 }
+
+/* Media query for responsiveness */
 @media (max-width: 768px) {
   .masonry-layout {
     grid-template-columns: 1fr; /* Stack images vertically */
   }
+}
+
+.masonry-layout {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Masonry grid layout */
 }
 
 .masonry-layout img {
@@ -20,6 +37,8 @@ body {
 .masonry-layout img:hover {
   transform: scale(1.05); /* Slightly enlarge the image on hover */
 }
+
+/* Modal image adjustments */
 @media (min-width: 1024px) {
   .modal-image {
     max-width: 60%; /* Reduce the image size to 60% for desktops */
